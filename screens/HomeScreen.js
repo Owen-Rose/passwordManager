@@ -10,7 +10,12 @@ export default function HomeScreen({navigation}) {
                 title="Logout"
                 onPress={() => navigation.navigate('Login')}
             />
+            <Button 
+                style={styles.button}
+                title="Add Password"
+                onPress={() => navigation.navigate('AddPassword')}
             
+            />
         </View>
     )
 }

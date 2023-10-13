@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
+import AddPasswordScreen from './screens/AddPasswordScreen';
 
 
 export default function App() {
@@ -13,9 +14,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <stack.Navigator initialRouteName='Login'>
-        <stack.Screen name="Login" component={LoginScreen} />
+      <stack.Navigator initialRouteName='Home'>
+        <stack.Screen name='Login' component={LoginScreen} />
         <stack.Screen name='Home' component={HomeScreen} />
+        <stack.Screen name='AddPassword' component={AddPasswordScreen} />
       </stack.Navigator>
     </NavigationContainer>
   );
