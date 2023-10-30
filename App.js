@@ -7,18 +7,16 @@ import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
 import AddPasswordScreen from './screens/AddPasswordScreen';
 
-
 export default function App() {
-  const stack = createStackNavigator();
-
+  const Stack = createStackNavigator();
 
   return (
     <NavigationContainer>
-      <stack.Navigator initialRouteName='Home'>
-        <stack.Screen name='Login' component={LoginScreen} />
-        <stack.Screen name='Home' component={HomeScreen} />
-        <stack.Screen name='AddPassword' component={AddPasswordScreen} />
-      </stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AddPassword" component={AddPasswordScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

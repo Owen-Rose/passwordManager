@@ -1,69 +1,67 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function AddPasswordScreen() {
-    const [website, setWebsite] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+export default function AddPasswordScreen({ navigation, route }) {
+  const [title, setTitle] = useState();
+  const [website, setWebsite] = useState();
+  const [login, setLogin] = useState();
+  const [password, setPassword] = useState();
 
-    const handleAddPassword = () => {
-        console.log(website, username, password);
-        Alert.alert('Password has been saved!')
-        setWebsite('');
-        setUsername('');
+  const handleSavePassword = async () => {
+    const newPassword = { title, website, login, password };
+    if (newPassword) {
+      try {
+        const passwords = await AsyncStorage.getItem('password');
+        const passwordArray = passwords ? JSON.parse(passwords) : [];
+        passwordArray.push(passwords);
+        await AsyncStorage.setItem('password', JSON.stringify(passwordArray));
         setPassword('');
-    };
+      } catch (error) {
+        console.error('Error saving password: ', error);
+      }
+    }
+  };
 
-    // const clearInputFields = () => {
-    //     setWebsite('');
-    //     setUsername('');
-    //     setPassword('');
-    // }
+  const handleGeneratePassword = () => {};
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>Add Password</Text>
-            <TextInput 
-                value={website}
-                style={styles.input}
-                placeholder='Website'
-                onChangeText={text => setWebsite(text)}
-            />
-            <TextInput
-                value={username} 
-                style={styles.input}
-                placeholder='Username'
-                onChangeText={text => setUsername(text)}
-                />
-                
-            <TextInput
-                value={password} 
-                style={styles.input}
-                placeholder='Password'
-                onChangeText={text => setPassword(text)}
-            />
-            <Button title='Save Password' onPress={handleAddPassword}/>
-        </View>
-    )
+  return (
+    <View>
+      <Text>Title</Text>
+      <TextInput
+        placeholder="Enter title"
+        value={title}
+        onChangeText={setTitle}
+      />
+
+      <Text>Website</Text>
+      <TextInput
+        placeholder="Enter website"
+        value={website}
+        onChangeText={setWebsite}
+      />
+
+      <Text>Login</Text>
+      <TextInput
+        placeholder="Enter login"
+        value={login}
+        onChangeText={setLogin}
+      />
+
+      <Text>Password</Text>
+      <TextInput
+        placeholder="Enter password"
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <TouchableOpacity onPress={handleSavePassword}>
+        <Text>Save Password</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleGeneratePassword}>
+        <Text> Generate Strong Password</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
-    },
-    heading: {
-        fontSize: 24,
-        marginBottom: 16,
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 16,
-        paddingHorizontal: 8,
-    },
-})
