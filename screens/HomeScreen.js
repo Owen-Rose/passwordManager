@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,40 +8,33 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Password from '../components/Password';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import passwordData from './passwords.json';
 
-export default function HomeScreen({ navigation, route }) {
+export default function HomeScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [passwords, setPasswords] = React.useState([]);
+  const [filteredPasswords, setFilteredPasswords] = React.useState(passwordData);
 
-  const handleSearch = text => {
+  const handleSearch = (text) => {
     setSearchQuery(text);
-    //add logic to filter passwords based on the search query
+    const filteredData = passwordData.filter((item) => {
+      return (
+        item.username.toLowerCase().includes(text.toLowerCase()) ||
+        item.website.toLowerCase().includes(text.toLowerCase())
+      );
+    });
+    setFilteredPasswords(filteredData);
   };
 
   const handleAddPassword = () => {
     navigation.navigate('AddPassword');
   };
 
-  const handleSetting = () => {};
+  const handlePasswordDetails = (item) => {
+    navigation.navigate('PasswordDetails', {password: item})
+  }
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const storedPasswords = await AsyncStorage.getItem('passwords');
-        const passwordArray = storedPasswords
-          ? JSON.parse(storedPasswords)
-          : [];
-        setPasswords(passwordArray);
-      } catch {
-        console.error('Error fetching passwords:', error);
-      }
-    }
-    fetchData();
-  }, []);
+  const handleSetting = () => {};
 
   return (
     <View style={styles.container}>
@@ -63,14 +56,10 @@ export default function HomeScreen({ navigation, route }) {
 
       {/* Password List */}
       <FlatList
-        data={passwordData}
-        keyExtractor={item => item.id}
+        data={filteredPasswords}
+        keyExtractor={item => item.password}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.username}</Text>
-            <Text>{item.password}</Text>
-            <Text>{item.website}</Text>
-          </View>
+          <Password item={item} onPress={handlePasswordDetails} />
         )}
       />
 

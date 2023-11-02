@@ -1,15 +1,25 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Password = ({ title, website, login, password }) => {
+const Password = ({ item, onPress }) => {
   return (
-    <View>
-      <Text>Title: {title}</Text>
-      <Text>Website: {website}</Text>
-      <Text>Login: {login}</Text>
-      <Text>Password: {password}</Text>
-    </View>
+    <TouchableOpacity onPress={() => onPress(item)}>
+      <View style={styles.container}>
+        <Text>{item.username}</Text>
+        <Text>{item.website}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    marginBottom: 8,
+  },
+});
 
 export default Password;
