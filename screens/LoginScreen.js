@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
@@ -22,7 +30,6 @@ export default function LoginScreen() {
       } else {
         setPasswordError(null);
       }
-
       return;
     }
 
@@ -32,13 +39,22 @@ export default function LoginScreen() {
     setPassWord('');
   };
 
+  const handleSignUpLinkPress = () => {
+    navigation.navigate('SignUp');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Hello friend.</Text>
       <TextInput
-        style={[styles.input, styles.rounded, { width: '80%' }, usernameError && styles.errorInput]}
+        style={[
+          styles.input,
+          styles.rounded,
+          { width: '80%' },
+          usernameError && styles.errorInput,
+        ]}
         placeholder="Username"
-        onChangeText={(text) => {
+        onChangeText={text => {
           setUserName(text);
           setUsernameError(null);
         }}
@@ -47,9 +63,14 @@ export default function LoginScreen() {
       />
       {usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
       <TextInput
-        style={[styles.input, styles.rounded, { width: '80%' }, passwordError && styles.errorInput]}
+        style={[
+          styles.input,
+          styles.rounded,
+          { width: '80%' },
+          passwordError && styles.errorInput,
+        ]}
         placeholder="Password"
-        onChangeText={(text) => {
+        onChangeText={text => {
           setPassWord(text);
           setPasswordError(null);
         }}
@@ -58,14 +79,18 @@ export default function LoginScreen() {
         secureTextEntry
       />
       {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
-      <TouchableOpacity style={[styles.loginButton, styles.rounded, { width: '80%' }]} onPress={handleLogin}>
+      <TouchableOpacity
+        style={[styles.loginButton, styles.rounded, { width: '80%' }]}
+        onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.forgetPasswordLink}>
         <Text style={styles.forgetPasswordText}>Forget password?</Text>
       </TouchableOpacity>
       <View style={styles.signupLink}>
-        <Text style={styles.signupText}>Don't have an account? Sign in</Text>
+        <Text style={styles.signupText} onPress={handleSignUpLinkPress}>
+          Don't have an account? Sign in
+        </Text>
       </View>
     </View>
   );
@@ -76,8 +101,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0', 
-    transform: [{translateY: -50}],
+    backgroundColor: '#f0f0f0',
+    transform: [{ translateY: -50 }],
   },
   heading: {
     fontSize: 24,
@@ -94,10 +119,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   rounded: {
-    borderRadius: 5, 
+    borderRadius: 5,
   },
   loginButton: {
-    backgroundColor: 'blue', 
+    backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
