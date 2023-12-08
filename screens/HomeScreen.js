@@ -2,14 +2,14 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   TextInput,
   FlatList,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import Password from '../components/Password';
-import passwordData from './passwords.json';
+import passwordData from '../data/passwords.json';
 
 export default function HomeScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -31,8 +31,8 @@ export default function HomeScreen({ navigation }) {
   };
 
   const handlePasswordDetails = (item) => {
-    navigation.navigate('PasswordDetails', {password: item})
-  }
+    navigation.navigate('PasswordDetails', { password: item });
+  };
 
   const handleSetting = () => {};
 
@@ -41,9 +41,9 @@ export default function HomeScreen({ navigation }) {
       {/* Header */}
       <View style={styles.header}>
         {/* App Logo */}
-        <Text style={styles.logo}>App Logo</Text>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
         {/* App Title */}
-        <Text style={styles.title}>App Title</Text>
+        <Text style={styles.title}>Passlock</Text>
       </View>
 
       {/* Search Bar */}
@@ -52,24 +52,25 @@ export default function HomeScreen({ navigation }) {
         placeholder="Search passwords..."
         value={searchQuery}
         onChangeText={handleSearch}
+        placeholderTextColor="#D5D6FD"
       />
 
       {/* Password List */}
       <FlatList
         data={filteredPasswords}
-        keyExtractor={item => item.password}
+        keyExtractor={(item) => item.password}
         renderItem={({ item }) => (
           <Password item={item} onPress={handlePasswordDetails} />
         )}
       />
 
       {/* Add Button */}
-      <TouchableOpacity style={styles.addButton} onPress={handleAddPassword}>
+      <TouchableOpacity style={[styles.addButton, { backgroundColor: '#6FD09A' }]} onPress={handleAddPassword}>
         <Text style={styles.buttonText}>Add Password</Text>
       </TouchableOpacity>
 
       {/* Settings Button */}
-      <TouchableOpacity style={styles.settingsButton} onPress={handleSetting}>
+      <TouchableOpacity style={[styles.settingsButton, { backgroundColor: '#6FD09A' }]} onPress={handleSetting}>
         <Text style={styles.buttonText}>Settings</Text>
       </TouchableOpacity>
     </View>
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#141432',
   },
   header: {
     flexDirection: 'row',
@@ -89,11 +90,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   logo: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    width: 50,
+    height: 50,
   },
   title: {
     fontSize: 18,
+    color: '#D5D6FD',
   },
   searchInput: {
     marginBottom: 16,
@@ -101,20 +103,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 4,
+    color: '#D5D6FD',
   },
   passwordItem: {
     marginBottom: 8,
     fontSize: 16,
   },
   addButton: {
-    backgroundColor: '#2196F3',
     padding: 12,
     borderRadius: 4,
     alignItems: 'center',
     marginBottom: 8,
   },
   settingsButton: {
-    backgroundColor: '#FF5722',
     padding: 12,
     borderRadius: 4,
     alignItems: 'center',

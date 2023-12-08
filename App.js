@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen';
 import AddPasswordScreen from './screens/AddPasswordScreen';
 import PasswordDetails from './components/PasswordDetails';
 import SignUpScreen from './screens/SignUpScreen';
+import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ export default function App() {
         <Stack.Screen name="AddPassword" component={AddPasswordScreen} />
         <Stack.Screen name="PasswordDetails" component={PasswordDetails} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="PasswordGenerator" component={PasswordGeneratorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -8,32 +8,51 @@ const SignUpScreen = ({ navigation }) => {
   const handleSignUp = () => {
     console.log('Email:', email);
     console.log('Password:', password);
-
     console.log('User signed up successfully!');
+    navigation.navigate('Home');
   };
 
   return (
-    <View>
-      <Text style={styles.header}>Sign up</Text>
+    <View style={styles.container}>
+      <Text style={[styles.header, { color: '#D5D6FD' }]}>Sign up</Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          { backgroundColor: '#272650', color: 'white', borderColor: '#D5D6FD' },
+        ]}
         placeholder="Email"
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
         value={email}
+        placeholderTextColor="#D5D6FD"
       />
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          { backgroundColor: '#272650', color: 'white', borderColor: '#D5D6FD' },
+        ]}
         placeholder="Password"
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setPassword(text)}
         value={password}
+        secureTextEntry
+        placeholderTextColor="#D5D6FD"
       />
-      <Button title="Sign up" onPress={handleSignUp} />
-      <Text style={styles.footerText}>
-        Already have an account?{' '}
-        <Text style={styles.link} onPress={() => navigation.navigate('Login')}>
-          Sign In
+      <TouchableOpacity
+        style={[
+          styles.signupButton,
+          { backgroundColor: '#6FD09A', borderRadius: 8, marginTop: 16 },
+        ]}
+        onPress={handleSignUp}
+      >
+        <Text style={styles.signupButtonText}>Sign up</Text>
+      </TouchableOpacity>
+      <View style={styles.footerContainer}>
+        <Text style={styles.footerText}>
+          Already have an account?{' '}
+          <Text style={[styles.link, { color: '#D5D6FD' }]} onPress={() => navigation.navigate('Login')}>
+            Sign In
+          </Text>
         </Text>
-      </Text>
+      </View>
     </View>
   );
 };
@@ -43,25 +62,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#141432',
   },
   header: {
-    fontSize: 24,
+    fontSize: 32,
     marginBottom: 16,
   },
   input: {
     height: 40,
     width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
     marginBottom: 16,
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
+    fontSize: 16,
+    borderRadius: 8,
+  },
+  signupButton: {
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+  },
+  signupButtonText: {
+    color: '#ffffff',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  footerContainer: {
+    marginTop: 20,
   },
   footerText: {
-    marginTop: 20,
     fontSize: 16,
+    color: '#D5D6FD',
+    textAlign: 'center',
   },
   link: {
-    color: 'blue',
+    fontWeight: 'bold',
   },
 });
 

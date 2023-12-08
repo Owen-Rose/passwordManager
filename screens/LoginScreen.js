@@ -7,8 +7,10 @@ import {
   StyleSheet,
   Alert,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 export default function LoginScreen() {
   const [username, setUserName] = useState('');
@@ -45,50 +47,68 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Hello friend.</Text>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <Text style={[styles.heading, { color: '#D5D6FD' }]}>Passlock</Text>
+      {usernameError && (
+        <Text style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
+          {usernameError}
+        </Text>
+      )}
       <TextInput
         style={[
           styles.input,
           styles.rounded,
-          { width: '80%' },
+          { width: '80%', backgroundColor: '#272650', color: 'white' },
           usernameError && styles.errorInput,
         ]}
         placeholder="Username"
-        onChangeText={text => {
+        onChangeText={(text) => {
           setUserName(text);
           setUsernameError(null);
         }}
         value={username}
         onFocus={() => setUsernameError(null)}
+        placeholderTextColor="#D5D6FD"
       />
-      {usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
+      {passwordError && (
+        <Text style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
+          {passwordError}
+        </Text>
+      )}
       <TextInput
         style={[
           styles.input,
           styles.rounded,
-          { width: '80%' },
+          { width: '80%', backgroundColor: '#272650', color: 'white' },
           passwordError && styles.errorInput,
         ]}
         placeholder="Password"
-        onChangeText={text => {
+        onChangeText={(text) => {
           setPassWord(text);
           setPasswordError(null);
         }}
         value={password}
         onFocus={() => setPasswordError(null)}
         secureTextEntry
+        placeholderTextColor="#D5D6FD"
       />
-      {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
       <TouchableOpacity
-        style={[styles.loginButton, styles.rounded, { width: '80%' }]}
-        onPress={handleLogin}>
+        style={[
+          styles.loginButton,
+          styles.rounded,
+          { width: '80%', backgroundColor: '#6FD09A' },
+        ]}
+        onPress={handleLogin}
+      >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.forgetPasswordLink}>
-        <Text style={styles.forgetPasswordText}>Forget password?</Text>
+        <Text style={[styles.forgetPasswordText, { color: '#D5D6FD' }]}>
+          Forget password?
+        </Text>
       </TouchableOpacity>
       <View style={styles.signupLink}>
-        <Text style={styles.signupText} onPress={handleSignUpLinkPress}>
+        <Text style={[styles.signupText, { color: '#D5D6FD' }]} onPress={handleSignUpLinkPress}>
           Don't have an account? Sign in
         </Text>
       </View>
@@ -101,8 +121,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#141432',
     transform: [{ translateY: -50 }],
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
   heading: {
     fontSize: 24,
@@ -110,7 +135,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    backgroundColor: 'white',
     paddingHorizontal: 10,
     marginBottom: 10,
   },
@@ -122,7 +146,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   loginButton: {
-    backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
@@ -136,13 +159,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   forgetPasswordText: {
-    color: 'blue',
+    color: '#D5D6FD',
   },
   signupLink: {
     position: 'absolute',
     bottom: 20,
   },
   signupText: {
-    color: 'blue',
+    color: '#D5D6FD',
+  },
+  errorText: {
+    color: '#D5D6FD',
   },
 });

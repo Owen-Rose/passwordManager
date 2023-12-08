@@ -5,8 +5,8 @@ const Password = ({ item, onPress }) => {
   return (
     <TouchableOpacity onPress={() => onPress(item)}>
       <View style={styles.container}>
-        <Text>{item.username}</Text>
-        <Text>{item.website}</Text>
+        <Text style={styles.usernameText}>{item.username}</Text>
+        <Text style={styles.websiteText}>{item.website}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -15,10 +15,17 @@ const Password = ({ item, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: '#272650', // Background color
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 4,
     marginBottom: 8,
+  },
+  usernameText: {
+    color: '#D5D6FD', // Text color
+  },
+  websiteText: {
+    color: '#D5D6FD', // Text color
   },
 });
 
