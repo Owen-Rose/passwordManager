@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function AddPasswordScreen({navigation}) {
+export default function AddPasswordScreen({ navigation }) {
   const [website, setWebsite] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -58,7 +64,9 @@ export default function AddPasswordScreen({navigation}) {
         <Text style={styles.buttonText}>Save Password</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PasswordGenerator')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('PasswordGenerator')}>
         <Text style={styles.buttonText}>Generate Strong Password</Text>
       </TouchableOpacity>
     </View>

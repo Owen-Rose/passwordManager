@@ -10,7 +10,6 @@ import {
   Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 export default function LoginScreen() {
   const [username, setUserName] = useState('');
@@ -50,7 +49,8 @@ export default function LoginScreen() {
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={[styles.heading, { color: '#D5D6FD' }]}>Passlock</Text>
       {usernameError && (
-        <Text style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
+        <Text
+          style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
           {usernameError}
         </Text>
       )}
@@ -62,7 +62,7 @@ export default function LoginScreen() {
           usernameError && styles.errorInput,
         ]}
         placeholder="Username"
-        onChangeText={(text) => {
+        onChangeText={text => {
           setUserName(text);
           setUsernameError(null);
         }}
@@ -71,7 +71,8 @@ export default function LoginScreen() {
         placeholderTextColor="#D5D6FD"
       />
       {passwordError && (
-        <Text style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
+        <Text
+          style={[styles.errorText, { color: '#D5D6FD', marginBottom: 10 }]}>
           {passwordError}
         </Text>
       )}
@@ -83,7 +84,7 @@ export default function LoginScreen() {
           passwordError && styles.errorInput,
         ]}
         placeholder="Password"
-        onChangeText={(text) => {
+        onChangeText={text => {
           setPassWord(text);
           setPasswordError(null);
         }}
@@ -98,8 +99,7 @@ export default function LoginScreen() {
           styles.rounded,
           { width: '80%', backgroundColor: '#6FD09A' },
         ]}
-        onPress={handleLogin}
-      >
+        onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.forgetPasswordLink}>
@@ -108,7 +108,9 @@ export default function LoginScreen() {
         </Text>
       </TouchableOpacity>
       <View style={styles.signupLink}>
-        <Text style={[styles.signupText, { color: '#D5D6FD' }]} onPress={handleSignUpLinkPress}>
+        <Text
+          style={[styles.signupText, { color: '#D5D6FD' }]}
+          onPress={handleSignUpLinkPress}>
           Don't have an account? Sign in
         </Text>
       </View>

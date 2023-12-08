@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$/;
+
+    if (!emailRegex.test(email)) {
+      Alert.alert('Invalid Email', 'Please enter a valid email address');
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      Alert.alert(
+        'Invalid Password',
+        'Password must be at least 8 characters long and contain at least one letter and one number',
+      );
+      return;
+    }
+
     console.log('Email:', email);
     console.log('Password:', password);
     console.log('User signed up successfully!');
@@ -18,20 +41,28 @@ const SignUpScreen = ({ navigation }) => {
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: '#272650', color: 'white', borderColor: '#D5D6FD' },
+          {
+            backgroundColor: '#272650',
+            color: 'white',
+            borderColor: '#D5D6FD',
+          },
         ]}
         placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={text => setEmail(text)}
         value={email}
         placeholderTextColor="#D5D6FD"
       />
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: '#272650', color: 'white', borderColor: '#D5D6FD' },
+          {
+            backgroundColor: '#272650',
+            color: 'white',
+            borderColor: '#D5D6FD',
+          },
         ]}
         placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={text => setPassword(text)}
         value={password}
         secureTextEntry
         placeholderTextColor="#D5D6FD"
@@ -41,14 +72,15 @@ const SignUpScreen = ({ navigation }) => {
           styles.signupButton,
           { backgroundColor: '#6FD09A', borderRadius: 8, marginTop: 16 },
         ]}
-        onPress={handleSignUp}
-      >
+        onPress={handleSignUp}>
         <Text style={styles.signupButtonText}>Sign up</Text>
       </TouchableOpacity>
       <View style={styles.footerContainer}>
         <Text style={styles.footerText}>
           Already have an account?{' '}
-          <Text style={[styles.link, { color: '#D5D6FD' }]} onPress={() => navigation.navigate('Login')}>
+          <Text
+            style={[styles.link, { color: '#D5D6FD' }]}
+            onPress={() => navigation.navigate('Login')}>
             Sign In
           </Text>
         </Text>

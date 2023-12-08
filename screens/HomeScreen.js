@@ -13,11 +13,12 @@ import passwordData from '../data/passwords.json';
 
 export default function HomeScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredPasswords, setFilteredPasswords] = React.useState(passwordData);
+  const [filteredPasswords, setFilteredPasswords] =
+    React.useState(passwordData);
 
-  const handleSearch = (text) => {
+  const handleSearch = text => {
     setSearchQuery(text);
-    const filteredData = passwordData.filter((item) => {
+    const filteredData = passwordData.filter(item => {
       return (
         item.username.toLowerCase().includes(text.toLowerCase()) ||
         item.website.toLowerCase().includes(text.toLowerCase())
@@ -30,11 +31,13 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('AddPassword');
   };
 
-  const handlePasswordDetails = (item) => {
+  const handlePasswordDetails = item => {
     navigation.navigate('PasswordDetails', { password: item });
   };
 
-  const handleSetting = () => {};
+  const handleSetting = () => {
+    navigation.navigate('Settings');
+  };
 
   return (
     <View style={styles.container}>
@@ -58,19 +61,23 @@ export default function HomeScreen({ navigation }) {
       {/* Password List */}
       <FlatList
         data={filteredPasswords}
-        keyExtractor={(item) => item.password}
+        keyExtractor={item => item.password}
         renderItem={({ item }) => (
           <Password item={item} onPress={handlePasswordDetails} />
         )}
       />
 
       {/* Add Button */}
-      <TouchableOpacity style={[styles.addButton, { backgroundColor: '#6FD09A' }]} onPress={handleAddPassword}>
+      <TouchableOpacity
+        style={[styles.addButton, { backgroundColor: '#6FD09A' }]}
+        onPress={handleAddPassword}>
         <Text style={styles.buttonText}>Add Password</Text>
       </TouchableOpacity>
 
       {/* Settings Button */}
-      <TouchableOpacity style={[styles.settingsButton, { backgroundColor: '#6FD09A' }]} onPress={handleSetting}>
+      <TouchableOpacity
+        style={[styles.settingsButton, { backgroundColor: '#6FD09A' }]}
+        onPress={handleSetting}>
         <Text style={styles.buttonText}>Settings</Text>
       </TouchableOpacity>
     </View>
